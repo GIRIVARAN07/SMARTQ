@@ -12,7 +12,11 @@ export const SocketProvider = ({ children }) => {
   const { user } = useAuth();
 
   useEffect(() => {
-    const newSocket = io('http://localhost:5000', {
+    const socketUrl = window.location.hostname === 'localhost' 
+      ? 'http://localhost:5000' 
+      : window.location.origin;
+
+    const newSocket = io(socketUrl, {
       transports: ['websocket', 'polling']
     });
 
