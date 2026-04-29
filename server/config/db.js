@@ -7,6 +7,10 @@ const connectDB = async () => {
     // Try connecting to the configured MongoDB URI first
     await mongoose.connect(process.env.MONGODB_URI);
     console.log(`✅ MongoDB Connected: ${mongoose.connection.host}`);
+    
+    // Auto-seed if database is empty
+    await seedDemoData();
+    
     return true;
   } catch (error) {
     console.log('⚠️  Local MongoDB not available, starting in-memory database...');
